@@ -24,7 +24,7 @@ public class Deck {
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
 		for(int i = 0; i < deck.size(); i++) {
-			builder.append(deck.get(i));
+			builder.append(deck.get(i).toString());
 		}
 		return builder.toString();
 	}

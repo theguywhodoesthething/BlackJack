@@ -5,16 +5,14 @@ import java.util.Scanner;
 
 public class Table {
 	
-	public int newHand(int betAmount) {
+	public int newHand(int betAmount, boolean okToDouble) {
 		
 		Scanner kb = new Scanner(System.in);
 		
 		Dealer dealer = new Dealer();
 		Deck allWinners = dealer.getNewDeck();
 		
-		char playerChoice;
-		int playerHandValue;
-		int dealerHandValue;
+		Integer playerChoice = 1, playerHandValue, dealerHandValue;
 		
 		dealer.initialDeal(allWinners);
 		
@@ -22,36 +20,49 @@ public class Table {
 		List<Card> playerHand = dealer.getPlayersHand();
 		
 		System.out.println("Dealer Shows:");
-		System.out.println(dealerHand.get(0).toString());
+		System.out.println(dealerHand.get(0));
 		
 		while (handValue(playerHand) <= 21) {
 		
 			System.out.println("Player Has:");
-			System.out.println(playerHand);
+			System.out.println(showCards(playerHand));
 			
 			while(true) {
-				System.out.println("(H)it or (S)tand");
-				playerChoice = kb.next().toLowerCase().charAt(0);
-				if (playerChoice != 'h' && playerChoice != 's') {
-					System.out.print("You must either ");
+				System.out.println("1: Hit\n2: Stay");
+				
+				if (okToDouble) {
+					System.out.println("3: Double");
+				}
+				
+				playerChoice = kb.nextInt();
+				
+				if (playerChoice > 3 || playerChoice < 1) {
+					System.out.println("Please select:");
+				} else if (!okToDouble && playerChoice == 3){
+					System.out.println("You don't have enough to double. Please select:");
 				} else { break; }
 			}
 		
-			if(playerChoice == 'h') {
+			if(playerChoice == 1) {
 				dealer.playerHits(allWinners);
-			} else { break; }
-		
+			} else if (playerChoice == 3) {
+				betAmount *= 2;
+				System.out.println("You double your bet to $" + betAmount);
+				dealer.playerHits(allWinners);
+				break;
+			} else { break; }		
 		}
 		
 		playerHandValue = handValue(playerHand);
 		
 		if (playerHandValue > 21) {
+			System.out.println(showCards(playerHand));
 			System.out.println("You have " + playerHandValue + ". You bust!");
 			return -betAmount;
 		}
 		
 		System.out.println("Dealer Has:");
-		System.out.println(dealer.getDealersHand().toString());
+		System.out.println(showCards(dealerHand));
 		
 		while (handValue(dealerHand) <= 16) {
 			System.out.println("Dealer Hits");
@@ -59,7 +70,7 @@ public class Table {
 			dealer.dealerHits(allWinners);
 		
 			System.out.println("Dealer Has:");
-			System.out.println(dealer.getDealersHand().toString());
+			System.out.println(showCards(dealerHand));
 		}
 		
 		dealerHandValue = handValue(dealerHand);
@@ -91,4 +102,11 @@ public class Table {
 		return value;
 	}
 
+	public String showCards(List<Card> hand) {
+		StringBuilder builder = new StringBuilder();
+		for(Card c : hand){
+			builder.append(c.toString());
+		}
+		return builder.toString();
+	}
 }

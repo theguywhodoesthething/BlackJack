@@ -23,7 +23,9 @@ public class Deck {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append(deck);
+		for(int i = 0; i < deck.size(); i++) {
+			builder.append(deck.get(i));
+		}
 		return builder.toString();
 	}
 	

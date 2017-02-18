@@ -6,19 +6,25 @@ import java.util.Map;
 public class Card {
 	
 	private Suit suit;
-	private Map<Rank, Integer> rank = new HashMap<>();
+	private Rank rank;
+	private Map<Rank, Integer> value = new HashMap<>();
 	
 	public Card(Rank r, Suit s) {
 		suit = s;
-		rank.put(r, setValue(r));
+		rank = r;
+		value.put(r, setValue(r));
 	}
 	
-	public Map<Rank, Integer> getRank() {
-		return rank;
+	public Map<Rank, Integer> getValue() {
+		return value;
 	}
 	
 	public Suit getSuit() {
 		return suit;
+	}
+	
+	public Rank getRank() {
+		return rank;
 	}
 	
 	private static Integer setValue(Rank r) {

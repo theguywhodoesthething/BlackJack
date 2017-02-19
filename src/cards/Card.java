@@ -30,7 +30,7 @@ public class Card {
 	private static Integer setValue(Rank r) {
 		
 		Rank[] allRanks = Rank.values();
-		Integer[] allValues = {2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10, 11};
+		Integer[] allValues = {2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10, 1};
 		
 		for (int i = 0; i < allRanks.length; i++) {
 			if (allRanks[i] == r){

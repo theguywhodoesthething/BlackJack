@@ -16,7 +16,9 @@ public class TwentyOne {
 		
 		System.out.println("Welcome to the BlackJack Table.");
 		
+		reload:
 		while (playAgain == 'y' && buyIn > 0) {
+			
 			System.out.println("You have have $" + buyIn);
 			
 			while(true) {
@@ -53,8 +55,11 @@ public class TwentyOne {
 				rebuy = kb.next().toLowerCase().charAt(0);
 				if (rebuy == 'y') {
 					buyIn = 10000;
+					break reload;
 				}
 			}
+			
+			okToDouble = true;
 			
 			System.out.println("Play again? (Y/N)");
 			playAgain = kb.next().toLowerCase().charAt(0);

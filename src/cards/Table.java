@@ -2,6 +2,8 @@ package cards;
 
 import java.util.List;
 import java.util.Scanner;
+import static cards.Rank.*;
+
 
 public class Table {
 	
@@ -12,7 +14,7 @@ public class Table {
 		Dealer dealer = new Dealer();
 		Deck allWinners = dealer.getNewDeck();
 		
-		Integer playerChoice = 1, playerHandValue, dealerHandValue;
+		Integer playerChoice = 1, insurance = 0, playerHandValue, dealerHandValue;
 		
 		dealer.initialDeal(allWinners);
 		
@@ -27,10 +29,29 @@ public class Table {
 			System.out.println("Player Has:");
 			System.out.println(showCards(playerHand));
 			
+//			if (dealerHand.get(0).getRank() == ACE) {
+//				System.out.println("Insurance?\n1: Yes\n2: No");
+//				insurance = kb.nextInt(); 	//working to implement insurance option, need
+//											// figure out how to subtract insurance from the bet
+//			}
+			
+			if (handValue(dealerHand) == 21 && handValue(playerHand) == 21) {
+				System.out.println(showCards(dealerHand));
+				System.out.println("Dealer has 21");
+				return 0;
+			} else if(handValue(playerHand) == 21) {
+				System.out.println("You have BlackJack!");
+				return (int)(((double)betAmount) * 1.5);
+			} else if (handValue(dealerHand) == 21) {
+				System.out.println(showCards(dealerHand));
+				System.out.println("Dealer has 21");
+				return -betAmount;
+			}
+			
 			while(true) {
 				System.out.println("1: Hit\n2: Stay");
 				
-				if (okToDouble) {
+				if (okToDouble && playerHand.size() == 2) {
 					System.out.println("3: Double");
 				}
 				
@@ -102,11 +123,24 @@ public class Table {
 		return value;
 	}
 
-	public String showCards(List<Card> hand) {
+	private String showCards(List<Card> hand) {
 		StringBuilder builder = new StringBuilder();
 		for(Card c : hand){
 			builder.append(c.toString());
 		}
 		return builder.toString();
 	}
+	
+//	private int bust(List<Card> hand) {
+//		int oneOrEleven = 0;
+//		
+//		for (Card c : hand) {
+//			if (c.getRank() == ACE) {
+//				oneOrEleven = 10;
+//			}
+//		}
+//		
+//		return oneOrEleven;
+//		
+//	}
 }

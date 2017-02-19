@@ -162,22 +162,21 @@ public class Table {
 
 	private boolean softSeventeen(List<Card> hand) {
 
-		boolean ace = false;
-		int value = 0;
+		int value = 0, numOfAces = 0;
 
 		for (Card c : hand) {
 			if (c.getValue().get(ACE) != null) {
-				ace = true;
+				numOfAces++;
 			}
 		}
 
-		if (ace) {
+		if (numOfAces != 0) {
 			for (Card c : hand) {
 				if (c.getValue().get(ACE) == null) {
 					value += c.getValue().get(c.getRank());
 				}
 			}
-			if (value == 6) {
+			if (value + numOfAces == 7) {
 				return true;
 			}
 		}

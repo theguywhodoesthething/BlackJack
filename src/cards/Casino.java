@@ -30,7 +30,7 @@ public class Casino {
 					okToDouble = false;
 				}
 
-				if (betAmount < 0) {
+				if (betAmount <= 0) {
 					System.out.println("I'm not falling for that.");
 				} else if (betAmount > buyIn) {
 					System.out.println("You only have $" + buyIn);

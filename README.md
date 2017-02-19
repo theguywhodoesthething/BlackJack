@@ -19,6 +19,6 @@ Main is located in VegasStakes. VegasStakes calls the public method twentyOne
 in Casino. The twentyOne method controls player funds and instantiates a Table
 object. The Table class implements the rules for BlackJack and instantiates a
 Dealer object. The Dealer class controls the Deck, which contains a List of Card
-objects.
+objects. Each Card has an enum Rank and an enum Suit. In each new hand the Dealer instantiates a new Deck, with the shuffle happening in the Deck class.
 
 Created for Skill Distillery by Matt Gmur
